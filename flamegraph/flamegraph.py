@@ -92,6 +92,12 @@ class ProfileThread(threading.Thread):
     # down while the thread is alive, raising an exception.
     self.join()
 
+  def __enter__(self):
+    self.start()
+
+  def __exit__(self):
+    self.stop()
+
 def start_profile_thread(fd, interval=0.001, filter=None, collapse_recursion=False):
   """Start a profiler thread."""
   profile_thread = ProfileThread(
